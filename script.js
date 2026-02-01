@@ -10,71 +10,6 @@ window.addEventListener("load", () => {
   });
 });
 
-/* HERO STAGGER */
-gsap.from(".hero-content > *", {
-  opacity: 0,
-  y: 60,
-  duration: 1,
-  stagger: 0.2,
-  delay: 1.2,
-  ease: "power3.out"
-});
-
-/* SCROLL ANIMATIONS */
-gsap.utils.toArray(".section").forEach(section => {
-  gsap.from(section, {
-    opacity: 0,
-    y: 120,
-    duration: 1.2,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: section,
-      start: "top 80%",
-    }
-  });
-});
-
-/* PARALLAX BACKGROUND */
-gsap.to(".hero-bg", {
-  y: 200,
-  scrollTrigger: {
-    trigger: ".hero",
-    start: "top top",
-    end: "bottom top",
-    scrub: true
-  }
-});
-
-/* MOUSE PARALLAX */
-document.addEventListener("mousemove", (e) => {
-  const hero = document.querySelector(".hero-content");
-  const x = (window.innerWidth / 2 - e.pageX) / 40;
-  const y = (window.innerHeight / 2 - e.pageY) / 40;
-  hero.style.transform = `translate(${x}px, ${y}px)`;
-});
-
-/* 3D TILT CARDS */
-document.querySelectorAll(".project-card").forEach(card => {
-  card.addEventListener("mousemove", (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const rotateX = ((y / rect.height) - 0.5) * 15;
-    const rotateY = ((x / rect.width) - 0.5) * -15;
-
-    card.style.transform = `
-      rotateX(${rotateX}deg)
-      rotateY(${rotateY}deg)
-      scale(1.05)
-    `;
-  });
-
-  card.addEventListener("mouseleave", () => {
-    card.style.transform = "rotateX(0) rotateY(0) scale(1)";
-  });
-});
-
 /* TYPING EFFECT */
 const text = ["AI / ML Engineer", "Creative Technologist", "Problem Solver"];
 let index = 0;
@@ -101,7 +36,6 @@ function eraseText() {
     setTimeout(typeText, 400);
   }
 }
-
 typeText();
 
 /* THEME TOGGLE */
@@ -111,7 +45,59 @@ toggle.addEventListener("click", () => {
   toggle.textContent = document.body.classList.contains("light") ? "☀️" : "🌙";
 });
 
-/* MOBILE SAFETY */
-if (window.innerWidth < 768) {
-  ScrollTrigger.killAll();
+/* THREE.JS 3D BACKGROUND */
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+
+const renderer = new THREE.WebGLRenderer({
+  canvas: document.getElementById("bg"),
+  alpha: true
+});
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+
+camera.position.z = 30;
+
+/* PARTICLES */
+const geometry = new THREE.BufferGeometry();
+const count = 2000;
+const positions = [];
+
+for (let i = 0; i < count * 3; i++) {
+  positions.push((Math.random() - 0.5) * 200);
 }
+
+geometry.setAttribute(
+  "position",
+  new THREE.Float32BufferAttribute(positions, 3)
+);
+
+const material = new THREE.PointsMaterial({
+  color: 0x6c7cff,
+  size: 0.6
+});
+
+const points = new THREE.Points(geometry, material);
+scene.add(points);
+
+/* ANIMATE */
+function animate() {
+  requestAnimationFrame(animate);
+  points.rotation.y += 0.0008;
+  points.rotation.x += 0.0004;
+  renderer.render(scene, camera);
+}
+animate();
+
+/* RESIZE */
+window.addEventListener("resize", () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
