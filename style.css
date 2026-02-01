@@ -21,8 +21,14 @@
 body {
   background: var(--bg);
   color: var(--text);
-  transition: 0.4s;
   overflow-x: hidden;
+}
+
+/* 3D CANVAS */
+#bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
 }
 
 /* LOADER */
@@ -47,7 +53,7 @@ body {
   to { opacity: 1; }
 }
 
-/* THEME BUTTON */
+/* THEME TOGGLE */
 .theme-toggle {
   position: fixed;
   top: 20px;
@@ -67,18 +73,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-}
-
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top, #6c7cff55, transparent 60%);
 }
 
 .hero-content {
   text-align: center;
-  z-index: 2;
 }
 
 .hero h1 {
@@ -91,7 +89,7 @@ body {
   opacity: 0.85;
 }
 
-/* BUTTONS */
+/* BUTTON */
 .btn {
   margin-top: 1.8rem;
   display: inline-block;
@@ -100,23 +98,13 @@ body {
   background: var(--primary);
   color: white;
   text-decoration: none;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px #6c7cff55;
-}
-
-.btn.ghost {
-  background: transparent;
-  border: 1px solid var(--primary);
 }
 
 /* SECTIONS */
 .section {
   padding: 6rem 10%;
   text-align: center;
+  backdrop-filter: blur(6px);
 }
 
 .section h2 {
@@ -127,22 +115,15 @@ body {
 /* SKILLS */
 .skills {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
 }
 
 .skills span {
-  padding: 0.6rem 1.2rem;
   background: var(--glass);
+  padding: 0.6rem 1.2rem;
   border-radius: 20px;
-  backdrop-filter: blur(10px);
-  transition: 0.3s;
-}
-
-.skills span:hover {
-  transform: translateY(-6px);
-  background: var(--primary);
 }
 
 /* PROJECTS */
@@ -156,14 +137,6 @@ body {
   background: var(--glass);
   padding: 2rem;
   border-radius: 20px;
-  backdrop-filter: blur(12px);
-  transition: 0.4s;
-  transform-style: preserve-3d;
-  perspective: 800px;
-}
-
-.project-card:hover {
-  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
 }
 
 /* CONTACT */
@@ -174,9 +147,6 @@ body {
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .hero h1 {
-    font-size: 2.8rem;
-  }
-  .section {
-    padding: 4rem 6%;
+    font-size: 2.6rem;
   }
 }
