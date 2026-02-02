@@ -5,14 +5,12 @@ const words = [
   "Clean Digital Experiences"
 ];
 
-let wordIndex = 0;
-let charIndex = 0;
+let wi = 0, ci = 0;
 const typing = document.querySelector(".typing");
 
 function type() {
-  if (charIndex < words[wordIndex].length) {
-    typing.textContent += words[wordIndex][charIndex];
-    charIndex++;
+  if (ci < words[wi].length) {
+    typing.textContent += words[wi][ci++];
     setTimeout(type, 70);
   } else {
     setTimeout(erase, 1400);
@@ -20,16 +18,73 @@ function type() {
 }
 
 function erase() {
-  if (charIndex > 0) {
-    typing.textContent = words[wordIndex].substring(0, charIndex - 1);
-    charIndex--;
+  if (ci > 0) {
+    typing.textContent = words[wi].substring(0, --ci);
     setTimeout(erase, 40);
   } else {
-    wordIndex = (wordIndex + 1) % words.length;
+    wi = (wi + 1) % words.length;
     setTimeout(type, 300);
   }
 }
 type();
+
+/* MODAL DATA */
+const data = {
+  ai: {
+    title: "Artificial Intelligence",
+    text: "Projects involving intelligent decision-making systems.",
+    projects: ["AI Nurse Assistant"]
+  },
+  ml: {
+    title: "Machine Learning",
+    text: "Predictive and data-driven machine learning models.",
+    projects: ["House Price Prediction"]
+  },
+  python: {
+    title: "Python",
+    text: "Backend logic, data processing, and ML pipelines.",
+    projects: ["AI Nurse Assistant", "House Price Prediction"]
+  },
+  data: {
+    title: "Data Science",
+    text: "Analyzing and extracting insights from structured data.",
+    projects: ["House Price Prediction"]
+  },
+  ui: {
+    title: "UI / UX Design",
+    text: "Design-focused problem solving and usability improvements.",
+    projects: ["UX Case Study"]
+  }
+};
+
+/* MODAL LOGIC */
+const modal = document.getElementById("modal");
+const title = document.getElementById("modal-title");
+const text = document.getElementById("modal-text");
+const projectsBox = document.getElementById("modal-projects");
+
+document.querySelectorAll(".skill").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const skill = data[btn.dataset.skill];
+
+    title.textContent = skill.title;
+    text.textContent = skill.text;
+    projectsBox.innerHTML = "";
+
+    skill.projects.forEach(p => {
+      const div = document.createElement("div");
+      div.textContent = p;
+      projectsBox.appendChild(div);
+    });
+
+    modal.classList.add("show");
+  });
+});
+
+document.querySelector(".close").onclick = () => modal.classList.remove("show");
+modal.onclick = e => {
+  if (e.target === modal) modal.classList.remove("show");
+};
 
 /* SUBTLE 3D BACKGROUND */
 const scene = new THREE.Scene();
@@ -44,20 +99,13 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 camera.position.z = 55;
 
 const geometry = new THREE.BufferGeometry();
-const count = 600;
 const positions = [];
-
-for (let i = 0; i < count * 3; i++) {
+for (let i = 0; i < 600 * 3; i++) {
   positions.push((Math.random() - 0.5) * 200);
 }
-
 geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
 
-const material = new THREE.PointsMaterial({
-  color: 0x6c7cff,
-  size: 0.45
-});
-
+const material = new THREE.PointsMaterial({ color: 0x6c7cff, size: 0.45 });
 const points = new THREE.Points(geometry, material);
 scene.add(points);
 
@@ -67,9 +115,3 @@ function animate() {
   renderer.render(scene, camera);
 }
 animate();
-
-window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
