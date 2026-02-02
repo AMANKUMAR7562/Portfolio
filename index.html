@@ -20,131 +20,54 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <h1>
-      Building ideas<br />
-      that feel <span>alive</span>
-    </h1>
-
+    <h1>Building ideas<br />that feel <span>alive</span></h1>
     <p class="typing"></p>
-
-    <div class="cta">
-      <a href="#work" class="btn primary">Explore Work</a>
-      <a href="#contact" class="btn ghost">Get in Touch</a>
-    </div>
   </div>
-</section>
-
-<!-- INTRO -->
-<section class="section intro">
-  <p>
-    I design and build digital experiences where
-    <strong>technology, creativity, and clarity</strong>
-    come together.
-  </p>
-</section>
-
-<!-- ABOUT -->
-<section class="section split">
-  <div class="text">
-    <h2>About Me</h2>
-    <p>
-      I’m an AI & Machine Learning enthusiast who enjoys turning complex
-      problems into simple, elegant solutions. I care deeply about how things
-      look, feel, and perform — not just how they work.
-    </p>
-  </div>
-
-  <img
-    class="section-image"
-    src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d"
-    alt="Creative workspace"
-  />
 </section>
 
 <!-- SKILLS -->
-<section class="section skills">
+<section class="section">
   <h2>What I Work With</h2>
 
   <div class="skill-grid">
-    <span>Artificial Intelligence</span>
-    <span>Machine Learning</span>
-    <span>Python</span>
-    <span>Data Science</span>
-    <span>Web Design</span>
-    <span>UI / UX</span>
+    <button class="skill" data-skill="ai">Artificial Intelligence</button>
+    <button class="skill" data-skill="ml">Machine Learning</button>
+    <button class="skill" data-skill="python">Python</button>
+    <button class="skill" data-skill="data">Data Science</button>
+    <button class="skill" data-skill="ui">UI / UX Design</button>
   </div>
 </section>
 
-<!-- WORK -->
-<section class="section dark" id="work">
+<!-- PROJECTS -->
+<section class="section dark">
   <h2>Selected Work</h2>
 
   <div class="cards">
     <div class="card">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71" alt="AI Project" />
-      </div>
       <h3>AI Nurse Assistant</h3>
-      <p>
-        An intelligent assistant designed to support nurses with quick,
-        accurate information inside hospitals.
-      </p>
+      <p>AI-powered assistant for hospital workflows.</p>
     </div>
-
     <div class="card">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43" alt="ML Project" />
-      </div>
       <h3>House Price Prediction</h3>
-      <p>
-        A machine learning system that predicts property prices using
-        historical and feature-based data.
-      </p>
+      <p>Machine learning model for real estate forecasting.</p>
     </div>
-
     <div class="card">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1581091215367-59ab6b1c3c0a" alt="UX Case Study" />
-      </div>
-      <h3>UX Problem Case Study</h3>
-      <p>
-        A design-led approach to identifying usability issues and crafting
-        intuitive user flows.
-      </p>
+      <h3>UX Case Study</h3>
+      <p>Solving usability problems with clean design.</p>
     </div>
   </div>
 </section>
 
-<!-- PHILOSOPHY -->
-<section class="section philosophy">
-  <h2>How I Think</h2>
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <button class="close">✕</button>
+    <h3 id="modal-title"></h3>
+    <p id="modal-text"></p>
 
-  <div class="philo-grid">
-    <div>
-      <h3>Clarity</h3>
-      <p>Simple solutions are often the most powerful.</p>
-    </div>
-    <div>
-      <h3>Balance</h3>
-      <p>Creativity works best when paired with structure.</p>
-    </div>
-    <div>
-      <h3>Growth</h3>
-      <p>Every project is an opportunity to learn and improve.</p>
-    </div>
+    <div class="modal-projects" id="modal-projects"></div>
   </div>
-</section>
-
-<!-- CONTACT -->
-<section class="section contact" id="contact">
-  <h2>Let’s Connect</h2>
-  <p>
-    Whether you’re a recruiter, collaborator, or just curious —
-    I’d love to hear from you.
-  </p>
-
-  <a href="mailto:your@email.com" class="btn primary">Send an Email</a>
-</section>
+</div>
 
 <script src="script.js"></script>
 </body>
